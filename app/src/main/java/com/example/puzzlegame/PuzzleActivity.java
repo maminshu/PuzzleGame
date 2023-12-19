@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Point;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Random;
 
@@ -23,6 +26,10 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
     int firstClickedRowNo=0;
     int firstClickedColNo=0;
     int success = 0;
+    private SoundPool soundPool;
+    int soundIdMove;    // 移动图片时的提示音id
+    int soundIdSuccess; // 成功时的提示音id
+    Calendar cStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +109,21 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
             TextView tv1 = findViewById(R.id.tvCongrtulation);
             tv1.setVisibility(View.VISIBLE);
         }
+
+        // 初始化声音效果文件
+        AudioAttributes abs = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_MEDIA)
+                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                .build() ;
+        soundPool =  new SoundPool.Builder()
+                .setMaxStreams(100)   //设置允许同时播放的流的最大值
+                .setAudioAttributes(abs)   //完全可以设置为null
+                .build() ;
+        soundIdMove=soundPool.load(this,R.raw.move,1);//加载资源，得到soundId
+        soundIdSuccess=soundPool.load(this,R.raw.success,1);//加载资源，得到soundId
+
+        // 记录当前时间，作为起始时间，以便计算拼图所用时长
+        cStart = Calendar.getInstance();
     }
 
     public void onClick(View view){
@@ -173,11 +195,47 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
                         break;
                     }
                 }
+
+                // 判断是否已成功
                 if(success == 1){
+                    // 计算所用时间
+                    // 获取当前时间（结束时间）
+                    Calendar cEnd = Calendar.getInstance();
+                    // 开始的时分秒
+                    long timeStart = cStart.getTimeInMillis();
+                    long timeEnd = cEnd.getTimeInMillis();
+                    long timeUsed = timeEnd - timeStart;    // 计算相差的毫秒
+                    long secondUsed = timeUsed / 1000;  // 转换为秒
+                    long hourUsed = secondUsed / 3600;
+                    long minuteUsed = (secondUsed % 3600) / 60;
+                    secondUsed = secondUsed % 60;
+                    // 拼接输入所用时长
+                    String strTimeUsed = "本次用时：";
+                    if (hourUsed > 0){
+                        String strTemp = String.format("%d小时", hourUsed);
+                        strTimeUsed += strTemp;
+                    }
+                    if (minuteUsed > 0){
+                        String strTemp = String.format("%d分", minuteUsed);
+                        strTimeUsed += strTemp;
+                    }
+                    String strTemp = String.format("%d秒", secondUsed);
+                    strTimeUsed += strTemp;
+
+                    TextView tvTime = findViewById(R.id.tvTimeUsed);
+                    tvTime.setText(strTimeUsed);
+                    tvTime.setVisibility(View.VISIBLE);
+
+                    // 显示成功信息
                     TextView tv1 = findViewById(R.id.tvCongrtulation);
                     tv1.setVisibility(View.VISIBLE);
+                    // 播放成功的音乐
+                    int streamIdSuccess = soundPool.play(soundIdSuccess, 1, 1, 1,0, 1); // 播放成功音乐
                 }
 
+                // 播放声音效果
+                // 播放移动图片的提示音
+//                int streamId= soundPool.play(soundIdMove, 1,1,1,0,1);//播放，得到StreamId
                 secondClick = 0;
             }
         }
