@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <GridLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/PuzzleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="4"
+        android:orientation="horizontal"
+        android:rowCount="4">
+
+        <ImageView
+            android:id="@+id/puzzlePic00"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="1dp"
+            app:srcCompat="@drawable/pic1_00" />
+
+        <ImageView
+            android:id="@+id/puzzlePic10"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="1dp"
+            app:srcCompat="@drawable/pic1_10" />
+
+        <ImageView
+            android:id="@+id/puzzlePic20"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="1dp"
+            app:srcCompat="@drawable/pic1_20" />
+
+        <ImageView
+            android:id="@+id/puzzlePic30"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            app:srcCompat="@drawable/pic1_30" />
+
+        <ImageView
+            android:id="@+id/puzzlePic01"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="1dp"
+            app:srcCompat="@drawable/pic1_01" />
+
+        <ImageView
+            android:id="@+id/puzzlePic11"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="1dp"
+            app:srcCompat="@drawable/pic1_11" />
+
+        <ImageView
+            android:id="@+id/puzzlePic21"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="1dp"
+            app:srcCompat="@drawable/pic1_21" />
+
+        <ImageView
+            android:id="@+id/puzzlePic31"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            app:srcCompat="@drawable/pic1_31" />
+
+        <ImageView
+            android:id="@+id/puzzlePic02"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="1dp"
+            app:srcCompat="@drawable/pic1_02" />
+
+        <ImageView
+            android:id="@+id/puzzlePic12"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="1dp"
+            app:srcCompat="@drawable/pic1_12" />
+
+        <ImageView
+            android:id="@+id/puzzlePic22"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="1dp"
+            app:srcCompat="@drawable/pic1_22" />
+
+        <ImageView
+            android:id="@+id/puzzlePic32"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            app:srcCompat="@drawable/pic1_32" />
+
+        <ImageView
+            android:id="@+id/puzzlePic03"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            app:srcCompat="@drawable/pic1_03" />
+
+        <ImageView
+            android:id="@+id/puzzlePic13"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            app:srcCompat="@drawable/pic1_13" />
+
+        <ImageView
+            android:id="@+id/puzzlePic23"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            app:srcCompat="@drawable/pic1_23" />
+
+        <ImageView
+            android:id="@+id/puzzlePic33"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            app:srcCompat="@drawable/pic1_33" />
+    </GridLayout>
+
+    <TextView
+    android:id="@+id/tvCongrtulation"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Congratulations!"
+    android:textSize="28sp"
+    android:textColor="@color/teal_700"
+    android:gravity="center"
+    android:visibility="invisible"
+    android:layout_marginTop="10dp"/>
+
+</LinearLayout>
