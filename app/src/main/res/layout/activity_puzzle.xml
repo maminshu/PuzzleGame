@@ -143,10 +143,33 @@
         android:id="@+id/tvTimeUsed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="本次用时"
-        android:textSize="28sp"
-        android:textColor="@color/teal_700"
+        android:layout_marginTop="10dp"
         android:gravity="center"
-        android:visibility="invisible"
-        android:layout_marginTop="10dp"/>
+        android:text="本次用时"
+        android:textColor="@color/teal_700"
+        android:textSize="28sp"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tvHistoryRecord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="本次用时"
+        android:textColor="@color/teal_700"
+        android:textSize="28sp"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tvRefreshRecord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="已刷新历史记录"
+        android:textColor="@color/teal_700"
+        android:textSize="28sp"
+        android:visibility="invisible" />
+
 </LinearLayout>

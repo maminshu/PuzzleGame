@@ -8,6 +8,7 @@ import android.graphics.Point;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -231,6 +237,10 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
                     tv1.setVisibility(View.VISIBLE);
                     // 播放成功的音乐
                     int streamIdSuccess = soundPool.play(soundIdSuccess, 1, 1, 1,0, 1); // 播放成功音乐
+
+                    /* 处理历史记录 */
+                    // 从文件中读历史记录
+                    readFile();
                 }
 
                 // 播放声音效果
@@ -239,5 +249,47 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
                 secondClick = 0;
             }
         }
+    }
+
+    public  long readFile(){
+        FileInputStream fileInputStream = null;
+        Reader reader = null;
+        BufferedReader bufferedReader = null;
+        long tempLong=0;
+        try {
+            fileInputStream = openFileInput("HistoryRecord.txt");
+            reader = new InputStreamReader(fileInputStream);// 字符流
+            bufferedReader = new BufferedReader(reader); //缓冲流
+            StringBuilder result = new StringBuilder();
+            String tempStr;
+            tempStr = bufferedReader.readLine();
+            if(tempStr != null)
+                tempLong = Long.parseLong(tempStr);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (fileInputStream != null) {
+                try {
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (bufferedReader != null) {
+                try {
+                    bufferedReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return tempLong;
     }
 }
