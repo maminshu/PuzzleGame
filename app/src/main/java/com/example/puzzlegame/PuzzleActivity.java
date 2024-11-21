@@ -239,8 +239,33 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
                     int streamIdSuccess = soundPool.play(soundIdSuccess, 1, 1, 1,0, 1); // 播放成功音乐
 
                     /* 处理历史记录 */
+                    String strHistoryRecord = "";
                     // 从文件中读历史记录
-                    readFile();
+                    long lHistoryRecord = readFile();
+                    if (lHistoryRecord == 0){
+                        strHistoryRecord = "无历史记录";
+                    }
+                    else{
+                        long secondHist = lHistoryRecord / 1000;  // 转换为秒
+                        long hourHist = lHistoryRecord / 3600;
+                        long minuteHist = (lHistoryRecord % 3600) / 60;
+                        lHistoryRecord = lHistoryRecord % 60;
+                        // 拼接输入所用时长
+                        strHistoryRecord = "历史记录：";
+                        if (hourUsed > 0){
+                            String strTemp1 = String.format("%d小时", hourUsed);
+                            strHistoryRecord += strTemp;
+                        }
+                        if (minuteUsed > 0){
+                            String strTemp1 = String.format("%d分", minuteUsed);
+                            strHistoryRecord += strTemp;
+                        }
+                        String strTemp1 = String.format("%d秒", secondUsed);
+                        strHistoryRecord += strTemp;
+                    }
+                    TextView tvHistoryRecord = findViewById(R.id.tvHistoryRecord);
+                    tvHistoryRecord.setText(strHistoryRecord);
+                    tvHistoryRecord.setVisibility(View.VISIBLE);
                 }
 
                 // 播放声音效果
