@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -247,25 +248,31 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
                     }
                     else{
                         long secondHist = lHistoryRecord / 1000;  // 转换为秒
-                        long hourHist = lHistoryRecord / 3600;
-                        long minuteHist = (lHistoryRecord % 3600) / 60;
-                        lHistoryRecord = lHistoryRecord % 60;
+                        long hourHist = secondHist / 3600;
+                        long minuteHist = (secondHist % 3600) / 60;
+                        secondHist = secondHist % 60;
                         // 拼接输入所用时长
                         strHistoryRecord = "历史记录：";
-                        if (hourUsed > 0){
-                            String strTemp1 = String.format("%d小时", hourUsed);
+                        if (hourHist > 0){
+                            String strTemp1 = String.format("%d小时", hourHist);
                             strHistoryRecord += strTemp;
                         }
-                        if (minuteUsed > 0){
-                            String strTemp1 = String.format("%d分", minuteUsed);
+                        if (minuteHist > 0){
+                            String strTemp1 = String.format("%d分", minuteHist);
                             strHistoryRecord += strTemp;
                         }
-                        String strTemp1 = String.format("%d秒", secondUsed);
-                        strHistoryRecord += strTemp;
+                        String strTemp1 = String.format("%d秒", secondHist);
+                        strHistoryRecord += strTemp1;
                     }
                     TextView tvHistoryRecord = findViewById(R.id.tvHistoryRecord);
                     tvHistoryRecord.setText(strHistoryRecord);
                     tvHistoryRecord.setVisibility(View.VISIBLE);
+
+                    if(lHistoryRecord == 0 || timeUsed < lHistoryRecord){
+                        writeFile(timeUsed);
+                        TextView tvRefreshRecord = findViewById(R.id.tvRefreshRecord);
+                        tvRefreshRecord.setVisibility(View.VISIBLE);
+                    }
                 }
 
                 // 播放声音效果
@@ -317,4 +324,24 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
         }
         return tempLong;
     }
+
+    public void writeFile(long lHistoryRecord){
+        FileOutputStream fileOutputStream = null;
+        try {
+            String text = String.format("%d", lHistoryRecord);
+            fileOutputStream = openFileOutput("HistoryRecord.txt", MODE_PRIVATE);
+            fileOutputStream.write(text.getBytes());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (fileOutputStream != null) {
+                try {
+                    fileOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 }
