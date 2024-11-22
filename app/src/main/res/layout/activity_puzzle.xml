@@ -172,4 +172,13 @@
         android:textSize="28sp"
         android:visibility="invisible" />
 
+    <Button
+        android:id="@+id/bt_retry"
+        android:layout_width="339dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#B57171"
+        android:onClick="onClickRetry"
+        android:text="再玩一次" />
+
 </LinearLayout>

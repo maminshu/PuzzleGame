@@ -344,4 +344,9 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    public void onClickRetry(View view){
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        // 调用第一个页面
+        startActivity(intent);
+    }
 }
